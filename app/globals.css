@@ -50,3 +50,7 @@ button:hover {
 button:active {
 	@apply bg-indigo-900;
 }
+
+h1 {
+	@apply mb-8 text-2xl font-bold;
+}

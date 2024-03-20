@@ -4,7 +4,7 @@ import { BehaviorTreeTree } from '@/components/tree'
 import { ActionNode, Node, NodeStatus, RepeatNode, SequenceNode, Tree } from '@ts-behavior-tree'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-class SampleActionNode extends ActionNode {
+class DelayActionNode extends ActionNode {
 	isrunning = false
 	iscompleted = false
 
@@ -46,11 +46,11 @@ export default function Home() {
 	}, [])
 
 	useEffect(() => {
-		const repeatNode = new RepeatNode(new SampleActionNode())
+		const repeatNode = new RepeatNode(new DelayActionNode())
 		const rootNode = new SequenceNode([
-			new SequenceNode([repeatNode, new SampleActionNode()]),
-			new SampleActionNode(),
-			new SampleActionNode(),
+			new SequenceNode([repeatNode, new DelayActionNode()]),
+			new DelayActionNode(),
+			new DelayActionNode(),
 		])
 
 		const t = new Tree(rootNode)
@@ -86,21 +86,23 @@ export default function Home() {
 	}, [tree])
 
 	return (
-		<main className="flex items-start bg-zinc-950 min-h-screen">
+		<main className="flex items-start bg-zinc-950 h-screen">
 			<div
 				ref={logsRef}
-				className="mt-4 text-xs leading-normal p-12 text-white text-opacity-70 font-mono bg-black bg-opacity-20 h-screen w-[32rem] overflow-y-auto scroll-smooth"
+				className="mt-4 text-xs leading-normal p-12 text-white text-opacity-70 font-mono bg-black bg-opacity-20 h-full w-[32rem] overflow-y-auto scroll-smooth"
 			>
+				{logs.length === 0 ? <div>Waiting for logs...</div> : null}
 				{logs.map((log, index) => (
 					<div key={index}>{log}</div>
 				))}
 			</div>
 			{tree ? (
-				<div className="flex-1">
-					<div className="absolute p-8 flex flex-col gap-4">
+				<div className="flex-1 p-8">
+					<h1>Behaviour Tree Viewer</h1>
+					<div className="absolute flex flex-col gap-4">
 						<button onClick={handleRunAgainClick}>Start</button>
 					</div>
-					<div className="p-24">
+					<div className="p-16">
 						<BehaviorTreeTree tree={tree} />
 					</div>
 				</div>
