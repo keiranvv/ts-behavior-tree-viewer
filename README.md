@@ -1,4 +1,4 @@
-A NextJS web project for viewing and debugging Behaviour Trees created with @keiranvv/ts-behaviour-tree.
+A NextJS web project for viewing and debugging Behaviour Trees created with [@keiranvv/ts-behaviour-tree](https://github.com/keiranvv/ts-behavior-tree).
 
 ## Example
 
